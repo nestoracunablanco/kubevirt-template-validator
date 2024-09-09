@@ -1,3 +1,5 @@
+BUILD_ARCH?=$(shell uname -m | sed 's/x86_64/amd64/')
+
 all: binary
 
 #vendor:
@@ -8,7 +10,7 @@ binary: #vendor
 
 release: binary
 	mkdir -p _out
-	cp cmd/kubevirt-template-validator/kubevirt-template-validator _out/kubevirt-template-validator-${VERSION}-linux-amd64
+	cp cmd/kubevirt-template-validator/kubevirt-template-validator _out/kubevirt-template-validator-${VERSION}-linux-${BUILD_ARCH}
 	hack/container/docker-push.sh ${VERSION}
 
 clean:
